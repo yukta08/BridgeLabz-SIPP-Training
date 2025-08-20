@@ -1,0 +1,55 @@
+//DAY-1
+Question:3 Undo Feature in Text Editor
+○ Use a Stack to store undo operations and implement revert functionality.
+
+CLASS TextEditor
+    VARIABLES:
+        text              // current text in the editor
+        undoStack         // stack to store previous states
+
+    METHOD constructor()
+        SET text = ""
+        CREATE undoStack as empty stack
+
+    METHOD type(newText)
+        PUSH current text to undoStack
+        APPEND newText to text
+
+    METHOD delete(n)
+        PUSH current text to undoStack
+        REMOVE last n characters from text
+
+    METHOD undo()
+        IF undoStack is not empty THEN
+            SET text = POP from undoStack
+        ELSE
+            PRINT "Nothing to undo"
+
+    METHOD display()
+        PRINT "Current Text: " + text
+
+// Main Execution
+START
+    CREATE editor = new TextEditor()
+
+    CALL editor.type("Hello")
+    CALL editor.display()     // Output: Hello
+
+    CALL editor.type(" World")
+    CALL editor.display()     // Output: Hello World
+
+    CALL editor.delete(6)
+    CALL editor.display()     // Output: Hello
+
+    CALL editor.undo()
+    CALL editor.display()     // Output: Hello World
+
+    CALL editor.undo()
+    CALL editor.display()     // Output: Hello
+
+    CALL editor.undo()
+    CALL editor.display()     // Output: (empty string)
+
+    CALL editor.undo()        // Output: Nothing to undo
+END
+

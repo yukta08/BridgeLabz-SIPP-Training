@@ -1,0 +1,76 @@
+//DAY-1
+
+Question:4  Call Center Queue Management
+○ Simulate Queue of customers waiting, and dequeue them based on priority
+(normal/emergency).
+
+
+CLASS Customer
+    VARIABLES:
+        name
+        issue
+        priority   // "emergency" or "normal"
+
+    METHOD constructor(name, issue, priority)
+        SET this.name = name
+        SET this.issue = issue
+        SET this.priority = priority
+
+
+CLASS CallCenterQueue
+    VARIABLES:
+        emergencyQueue  // Queue for emergency customers
+        normalQueue     // Queue for normal customers
+
+    METHOD constructor()
+        CREATE emergencyQueue as empty queue
+        CREATE normalQueue as empty queue
+
+    METHOD enqueueCustomer(customer)
+        IF customer.priority == "emergency" THEN
+            ADD customer to emergencyQueue
+        ELSE
+            ADD customer to normalQueue
+
+    METHOD dequeueCustomer()
+        IF emergencyQueue is not empty THEN
+            RETURN REMOVE first customer from emergencyQueue
+        ELSE IF normalQueue is not empty THEN
+            RETURN REMOVE first customer from normalQueue
+        ELSE
+            PRINT "No customers in queue"
+            RETURN null
+
+    METHOD displayQueues()
+        PRINT "Emergency Queue:"
+        FOR each customer in emergencyQueue
+            PRINT customer.name + " - " + customer.issue
+        PRINT "Normal Queue:"
+        FOR each customer in normalQueue
+            PRINT customer.name + " - " + customer.issue
+
+
+// Main Execution
+START
+    CREATE center = new CallCenterQueue()
+
+    CREATE c1 = new Customer("Alice", "Billing Issue", "normal")
+    CREATE c2 = new Customer("Bob", "System Down", "emergency")
+    CREATE c3 = new Customer("Charlie", "Login Problem", "normal")
+    CREATE c4 = new Customer("David", "Security Breach", "emergency")
+
+    CALL center.enqueueCustomer(c1)
+    CALL center.enqueueCustomer(c2)
+    CALL center.enqueueCustomer(c3)
+    CALL center.enqueueCustomer(c4)
+
+    CALL center.displayQueues()
+
+    PRINT "Calling next customer..."
+    SET next = center.dequeueCustomer()
+    IF next IS NOT null THEN
+        PRINT "Serving: " + next.name + " - " + next.issue
+
+    CALL center.displayQueues()
+END
+

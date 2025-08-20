@@ -1,0 +1,72 @@
+
+// DAY-1
+Pet Adoption App
+○ Design classes for Pet, Dog, Cat, and Bird. Use inheritance and constructors
+to initialize them.
+CLASS Pet{
+    PROPERTIES:
+        name
+        age
+        gender
+
+    CONSTRUCTOR(name, age, gender)
+        SET this.name = name
+        SET this.age = age
+        SET this.gender = gender
+
+    METHOD displayDetails()
+        PRINT name, age, gender
+
+}
+
+CLASS Dog EXTENDS Pet{
+    PROPERTY:
+        breed
+
+    CONSTRUCTOR(name, age, gender, breed)
+        CALL super(name, age, gender)
+        SET this.breed = breed
+
+    METHOD displayDetails()
+        CALL super.displayDetails()
+        PRINT "Type: Dog", "Breed: " + breed
+
+}
+
+CLASS Cat EXTENDS Pet{
+    PROPERTY:
+        furColor
+
+    CONSTRUCTOR(name, age, gender, furColor)
+        CALL super(name, age, gender)
+        SET this.furColor = furColor
+
+    METHOD displayDetails()
+        CALL super.displayDetails()
+        PRINT "Type: Cat", "Fur Color: " + furColor
+
+}
+CLASS Bird EXTENDS Pet{
+    PROPERTY:
+        canFly
+
+    CONSTRUCTOR(name, age, gender, canFly)
+        CALL super(name, age, gender)
+        SET this.canFly = canFly
+
+    METHOD displayDetails()
+        CALL super.displayDetails()
+        PRINT "Type: Bird", "Can Fly: " + (Yes if canFly else No)
+}
+
+
+MAIN METHOD{
+    CREATE dog OBJECT OF Dog("Bruno", 3, "Male", "Labrador")
+    CREATE cat OBJECT OF Cat("Whiskers", 2, "Female", "White")
+    CREATE bird OBJECT OF Bird("Tweety", 1, "Female", true)
+
+    PRINT "--- Pet Details ---"
+    CALL dog.displayDetails()
+    CALL cat.displayDetails()
+    CALL bird.displayDetails()
+}

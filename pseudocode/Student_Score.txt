@@ -1,0 +1,42 @@
+//DAY-1
+
+Question:5 Student Score Storage
+○ Store marks in HashMap<String, Integer>, and display the highest scorer
+using streams.
+
+CLASS StudentScoreManager
+    VARIABLES:
+        scoresMap   // HashMap<String, Integer>
+
+    METHOD constructor()
+        CREATE scoresMap as empty HashMap
+
+    METHOD addScore(name, marks)
+        SET scoresMap[name] = marks
+
+    METHOD displayAllScores()
+        FOR each entry (name, marks) in scoresMap
+            PRINT name + ": " + marks
+
+    METHOD displayHighestScorer()
+        IF scoresMap is empty THEN
+            PRINT "No scores available"
+            RETURN
+
+        SET highestEntry = scoresMap.entrySet()
+                            .stream()
+                            .max(by value)
+
+        PRINT "Highest Scorer: " + highestEntry.key + " with " + highestEntry.value + " marks"
+
+// Main Execution
+START
+    CREATE manager = new StudentScoreManager()
+
+    CALL manager.addScore("Alice", 89)
+    CALL manager.addScore("Bob", 95)
+    CALL manager.addScore("Charlie", 92)
+
+    CALL manager.displayAllScores()
+    CALL manager.displayHighestScorer()
+END

@@ -1,0 +1,45 @@
+//DAY-1
+Question:2 Library Membership Tracker
+○ Create a class Member with attributes like name, ID, membership date. Add
+methods to check membership validity.
+
+
+CLASS Member
+    VARIABLES:
+        name
+        memberID
+        membershipDate      // date of joining (e.g., in format "YYYY-MM-DD")
+        membershipDuration  // in months or years
+
+    METHOD constructor(name, memberID, membershipDate, membershipDuration)
+        SET this.name = name
+        SET this.memberID = memberID
+        SET this.membershipDate = membershipDate
+        SET this.membershipDuration = membershipDuration
+
+    METHOD isMembershipValid(currentDate)
+        CALCULATE expiryDate = membershipDate + membershipDuration
+        IF currentDate <= expiryDate THEN
+            RETURN True
+        ELSE
+            RETURN False
+
+    METHOD displayMemberDetails()
+        PRINT "Name: " + name
+        PRINT "Member ID: " + memberID
+        PRINT "Membership Date: " + membershipDate
+        PRINT "Membership Duration: " + membershipDuration + " months"
+
+
+// Main Execution
+START
+    CREATE member1 = new Member("Tara", "M101", "2023-08-20", 12)
+
+    CALL member1.displayMemberDetails()
+
+    SET today = "2025-08-20"
+    IF member1.isMembershipValid(today) THEN
+        PRINT "Membership is still valid."
+    ELSE
+        PRINT "Membership has expired."
+END

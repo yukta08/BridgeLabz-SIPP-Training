@@ -1,0 +1,56 @@
+//DAY-1
+Question:6 Employee Record Keeper
+○ Use ArrayList<Employee> and filter employees by department.
+
+CLASS Employee
+    VARIABLES:
+        name
+        id
+        department
+
+    METHOD constructor(name, id, department)
+        SET this.name = name
+        SET this.id = id
+        SET this.department = department
+
+
+CLASS EmployeeRecordKeeper
+    VARIABLES:
+        employeeList   // ArrayList<Employee>
+
+    METHOD constructor()
+        CREATE employeeList as empty list
+
+    METHOD addEmployee(employee)
+        ADD employee to employeeList
+
+    METHOD displayAllEmployees()
+        PRINT "All Employees:"
+        FOR each emp in employeeList
+            PRINT emp.name + " | " + emp.id + " | " + emp.department
+
+    METHOD displayEmployeesByDepartment(dept)
+        PRINT "Employees in Department: " + dept
+        FOR each emp in employeeList
+            IF emp.department == dept THEN
+                PRINT emp.name + " | " + emp.id
+
+
+// Main Execution
+START
+    CREATE manager = new EmployeeRecordKeeper()
+
+    CREATE e1 = new Employee("Alice", 101, "HR")
+    CREATE e2 = new Employee("Bob", 102, "IT")
+    CREATE e3 = new Employee("Charlie", 103, "IT")
+    CREATE e4 = new Employee("Diana", 104, "Finance")
+
+    CALL manager.addEmployee(e1)
+    CALL manager.addEmployee(e2)
+    CALL manager.addEmployee(e3)
+    CALL manager.addEmployee(e4)
+
+    CALL manager.displayAllEmployees()
+
+    CALL manager.displayEmployeesByDepartment("IT")
+END
