@@ -1,0 +1,59 @@
+# Abstract class for Crop
+ABSTRACT CLASS Crop
+    ATTRIBUTE name   # name of the crop
+
+    # Constructor
+    METHOD __init__(name)
+        SET self.name = name
+
+    # Abstract method: water requirement
+    ABSTRACT METHOD waterRequirement()
+
+    # Abstract method: harvesting
+    ABSTRACT METHOD harvest()
+
+
+# Concrete class Rice inheriting Crop
+CLASS Rice EXTENDS Crop
+
+    # Constructor
+    METHOD __init__()
+        CALL SUPER("Rice")
+
+    # Implement water requirement
+    METHOD waterRequirement()
+        PRINT "Rice requires 3-4 liters of water per day."
+
+    # Implement harvest
+    METHOD harvest()
+        PRINT "Harvest Rice after 120 days."
+
+
+# Concrete class Wheat inheriting Crop
+CLASS Wheat EXTENDS Crop
+
+    # Constructor
+    METHOD __init__()
+        CALL SUPER("Wheat")
+
+    # Implement water requirement
+    METHOD waterRequirement()
+        PRINT "Wheat requires 2-3 liters of water per day."
+
+    # Implement harvest
+    METHOD harvest()
+        PRINT "Harvest Wheat after 100 days."
+
+
+# MAIN PROGRAM
+METHOD main()
+    CREATE riceCrop AS Rice()
+    CALL riceCrop.waterRequirement()
+    CALL riceCrop.harvest()
+
+    CREATE wheatCrop AS Wheat()
+    CALL wheatCrop.waterRequirement()
+    CALL wheatCrop.harvest()
+
+# Run main program
+CALL main()

@@ -1,0 +1,71 @@
+CLASS Customer {
+    ATTRIBUTES:
+        name
+        address
+
+    CONSTRUCTOR(name, address)
+        SET this.name = name
+        SET this.address = address
+
+    METHOD displayDetails()
+        PRINT "Customer: ", name, address
+}
+
+CLASS Restaurant {
+    ATTRIBUTES:
+        name
+        location
+
+    CONSTRUCTOR(name, location)
+        SET this.name = name
+        SET this.location = location
+
+    METHOD displayDetails()
+        PRINT "Restaurant: ", name, location
+}
+
+CLASS DeliveryBoy {
+    ATTRIBUTES:
+        name
+        phone
+
+    CONSTRUCTOR(name, phone)
+        SET this.name = name
+        SET this.phone = phone
+
+    METHOD displayDetails()
+        PRINT "Delivery Boy: ", name, phone
+}
+
+CLASS Order {
+    ATTRIBUTES:
+        orderId
+        customer      
+        restaurant    
+        deliveryBoy  
+
+    CONSTRUCTOR(orderId, customerName, customerAddress,
+                restaurantName, restaurantLocation,
+                deliveryBoyName, deliveryBoyPhone)
+
+        SET this.orderId = orderId
+        CREATE new Customer(customerName, customerAddress)
+        CREATE new Restaurant(restaurantName, restaurantLocation)
+        CREATE new DeliveryBoy(deliveryBoyName, deliveryBoyPhone)
+
+    METHOD displayOrderDetails()
+        PRINT "Order ID: ", orderId
+        CALL customer.displayDetails()
+        CALL restaurant.displayDetails()
+        CALL deliveryBoy.displayDetails()
+}
+
+MAIN METHOD {
+    CREATE order OBJECT OF Order(101,
+                                 "Ayushi", "Delhi",
+                                 "Foodie's Hub", "Noida",
+                                 "Vipin", "9876543210")
+
+    PRINT "--- Order Details ---"
+    CALL order.displayOrderDetails()
+}

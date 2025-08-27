@@ -1,0 +1,42 @@
+CLASS Patient {
+    ATTRIBUTES:
+        id
+        name
+        age
+        disease
+
+    CONSTRUCTOR(id, name, age, disease)
+        SET this.id = id
+        SET this.name = name
+        SET this.age = age
+        SET this.disease = disease
+
+    METHOD displayDetails()
+        PRINT "ID: ", id, " Name: ", name, " Age: ", age, " Disease: ", disease
+}
+
+MAIN METHOD {
+    CREATE HashMap<Integer, Patient> patientsMap
+
+    // Add patients
+    CREATE patient1 = new Patient(101, "Ayushi", 21, "Flu")
+    CREATE patient2 = new Patient(102, "Vipin", 30, "Fever")
+    ADD patient1 TO patientsMap WITH KEY = 101
+    ADD patient2 TO patientsMap WITH KEY = 102
+
+    PRINT "--- Retrieve a Patient ---"
+    RETRIEVE patient FROM patientsMap USING KEY 101
+    CALL patient.displayDetails()
+
+    PRINT "--- Update a Patient ---"
+    RETRIEVE patient FROM patientsMap USING KEY 102
+    SET patient.disease = "Migraine"   // update record
+    REPLACE in patientsMap with updated patient
+
+    PRINT "--- Delete a Patient ---"
+    REMOVE patient FROM patientsMap USING KEY 101
+
+    PRINT "--- Display All Patients ---"
+    FOR EACH entry IN patientsMap
+        CALL entry.value.displayDetails()
+}
