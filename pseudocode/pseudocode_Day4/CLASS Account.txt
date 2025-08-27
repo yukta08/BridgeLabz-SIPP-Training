@@ -1,0 +1,58 @@
+CLASS Account
+    PROPERTIES:
+        accountNumber
+        accountHolderName
+        balance
+
+    CONSTRUCTOR(accountNumber, accountHolderName, balance)
+        SET this.accountNumber = accountNumber
+        SET this.accountHolderName = accountHolderName
+        SET this.balance = balance
+
+    METHOD deposit(amount)
+        balance = balance + amount
+        PRINT "Deposited:", amount, " New Balance:", balance
+
+    METHOD withdraw(amount)   // General Rule (to be overridden)
+        IF amount <= balance
+            balance = balance - amount
+            PRINT "Withdrawn:", amount, " New Balance:", balance
+        ELSE
+            PRINT "Insufficient Balance"
+
+    METHOD displayDetails()
+        PRINT "Account No:", accountNumber
+        PRINT "Holder:", accountHolderName
+        PRINT "Balance:", balance
+
+
+CLASS SavingAccount EXTENDS Account
+    PROPERTY interestRate
+
+    CONSTRUCTOR(accountNumber, accountHolderName, balance, interestRate)
+        CALL super(accountNumber, accountHolderName, balance)
+        SET this.interestRate = interestRate
+
+    OVERRIDE METHOD withdraw(amount)
+        MINIMUM_BALANCE = 1000
+        IF (balance - amount) >= MINIMUM_BALANCE
+            balance = balance - amount
+            PRINT "Withdrawn from Saving:", amount, " Remaining Balance:", balance
+        ELSE
+            PRINT "Withdrawal Denied! Minimum balance of", MINIMUM_BALANCE, "must be maintained."
+
+
+CLASS CurrentAccount EXTENDS Account
+    PROPERTY overdraftLimit
+
+    CONSTRUCTOR(accountNumber, accountHolderName, balance, overdraftLimit)
+        CALL super(accountNumber, accountHolderName, balance)
+        SET this.overdraftLimit = overdraftLimit
+
+    OVERRIDE METHOD withdraw(amount)
+        IF amount <= (balance + overdraftLimit)
+            balance = balance - amount
+            PRINT "Withdrawn from Current:", amount, " Remaining Balance:", balance
+        ELSE
+            PRINT "Withdrawal Denied! Exceeds overdraft limit."
+
