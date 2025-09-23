@@ -1,0 +1,24 @@
+CLASS Employee{
+START
+    CREATE class Employee with fields: name, department, salary
+
+    CREATE ArrayList<Employee> employees
+
+    ADD new Employee("John", "IT", 60000) to employees
+    ADD new Employee("Sara", "HR", 50000) to employees
+    ADD new Employee("Mike", "IT", 65000) to employees
+    ADD new Employee("Emma", "Finance", 55000) to employees
+
+    // Filter employees by department using streams
+    targetDepartment = "IT"
+
+    itEmployees = employees
+        CONVERT to stream
+        FILTER where employee.department == targetDepartment
+        COLLECT into list
+
+    PRINT "Employees in IT department:"
+    FOR EACH employee in itEmployees
+        PRINT employee.name
+END
+}

@@ -1,0 +1,44 @@
+CLASS Transaction
+    PROPERTIES:
+        id
+        merchant
+        amount
+        date   // LocalDate
+
+    CONSTRUCTOR(id, merchant, amount, date)
+        SET this.id = id
+        SET this.merchant = merchant
+        SET this.amount = amount
+        SET this.date = date
+
+
+
+PROGRAM TransactionSummaryReport
+
+    transactions = [
+        Transaction(1, "Amazon", 1200, 2025-01-10),
+        Transaction(2, "Flipkart", 800, 2025-01-15),
+        Transaction(3, "Amazon", 500, 2025-02-05),
+        Transaction(4, "Myntra", 1500, 2025-01-20),
+        Transaction(5, "Flipkart", 2000, 2025-02-12),
+        Transaction(6, "Amazon", 1000, 2025-02-25)
+    ]
+
+
+       summary = transactions.stream()
+        .collect(
+            groupingBy(
+                t -> t.merchant,
+                groupingBy(
+                    t -> t.date.getMonth(),
+                    summingDouble(t -> t.amount)
+                )
+            )
+        )
+
+    
+    FOR each merchant IN summary
+        PRINT "Merchant:", merchant
+        FOR each month IN summary[merchant]
+            PRINT "   Month:", month, 
+                  " Total Amount:", summary[merchant][month]

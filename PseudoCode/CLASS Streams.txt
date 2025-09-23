@@ -1,0 +1,18 @@
+CLASS Streams{
+START
+    CREATE HashMap<String, Integer> studentMarks
+
+    ADD ("Alice", 88) to studentMarks
+    ADD ("Bob", 92) to studentMarks
+    ADD ("Charlie", 85) to studentMarks
+    ADD ("David", 95) to studentMarks
+
+    // Find highest scorer using streams
+    highestScorer = studentMarks
+        CONVERT to stream of entries
+        FIND entry with MAX value (compare by marks)
+        GET key (student name)
+
+    PRINT "Highest scorer: " + highestScorer
+END
+}

@@ -1,0 +1,28 @@
+CLASS Book {
+    ATTRIBUTES:
+        title
+        author
+        year
+        rating
+
+    CONSTRUCTOR(title, author, year, rating)
+        SET values
+
+    METHOD toString()
+        RETURN title + " by " + author + " (" + year + ") Rating: " + rating
+}
+
+MAIN METHOD {
+    CREATE List<Book> books
+
+    ADD Book("Java Basics", "James", 2012, 4.2) TO books
+    ADD Book("Modern Java", "Ayushi", 2018, 4.8) TO books
+    ADD Book("Spring Boot", "Vipin", 2021, 4.6) TO books
+    ADD Book("Algorithms", "Knuth", 2005, 4.9) TO books
+
+    PRINT "--- Books after 2015 with rating > 4.5 ---"
+
+    books.stream()
+         .filter(book -> book.year > 2015 AND book.rating > 4.5)
+         .forEach(book -> PRINT book)
+}
